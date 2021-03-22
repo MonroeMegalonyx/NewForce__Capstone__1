@@ -1,35 +1,39 @@
 /* 
 App component that activates the main components for users.
 */
-//import logo from "./logo.svg";
-import "./App.css";
 import React, { Component } from "react";
-//import { Route, Redirect } from "react-router-dom";
+import { Route, Redirect } from "react-router-dom";
+import NavBar from "./NavBar";
 import ApplicationViews from "./AppViews";
+import { Login } from "./components/Auth/Login";
+import { Logout } from "./components/Auth/Logout";
+//import "./App.css";
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 class App extends Component {
   render() {
-    /*return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );*/
     return (
       <>
-        <ApplicationViews />
+        <Route
+          render={() => {
+            if (localStorage.getItem("zotero_user")) {
+              return (
+                <>
+                  <NavBar />
+                  <ApplicationViews />
+                </>
+              );
+            } else {
+              return <Redirect to="/login" />;
+            }
+          }}
+        />
+        <Route path="/login">
+          <Login />
+        </Route>
+        <Route path="/logout">
+          <Logout />
+        </Route>
       </>
     );
   }

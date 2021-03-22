@@ -23,6 +23,7 @@ export const ItemContext = createContext();
 export const ItemProvider = (props) => {
   // Defines a variable that holds the state of the component, and a function that updates it
   const [items, setItems] = useState([]);
+  const [singleItem, setSingleItem] = useState([]);
 
   // Get all items-parents and children-in a user's library
   const getZoteroItems = () => {
@@ -37,6 +38,31 @@ export const ItemProvider = (props) => {
       .then(setItems);
   };
 
+  // Get all the info for a specific item by its key
+  const getItemByKey = (itemKey) => {
+    return fetch(
+      `https://api.zotero.org/users/${settings.zoteroUserID}/items/${itemKey}`,
+      {
+        method: "GET",
+        headers: { "Zotero-API-Key": settings.zoteroAPIkey },
+      }
+    )
+      .then((r) => r.json())
+      .then(setSingleItem)
+  };
+  
+  // Post a change to a specifc item's tag
+  const editTagOfItem = (itemKey, itemBody) => {
+    return fetch(
+      `https://api.zotero.org/users/${settings.zoteroUserID}/items/${itemKey}`,
+      {
+        method: "PUT",
+        headers: { "Zotero-API-Key": settings.zoteroAPIkey },
+        body: JSON.stringify(itemBody)
+      })
+      // .then((r) => r.json())
+      // .then(setSingleItem)
+  };
   /*
     React components return something, here we return context provider containing the 
     'task' state, a 'getTasks' function, and a 'addTask' function. This is what this 
@@ -47,6 +73,9 @@ export const ItemProvider = (props) => {
       value={{
         items,
         getZoteroItems,
+        singleItem,
+        getItemByKey,
+        editTagOfItem
       }}
     >
       {props.children}
