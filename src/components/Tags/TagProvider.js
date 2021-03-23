@@ -1,8 +1,8 @@
 /* 
-Data provider component to get and modify tasks in a local database.
+Data provider component to get and modify tags from Zotero
 */
 import React, { useState, createContext } from "react";
-import { settings } from "../../settings.js";
+//import { settings } from "../../settings.js";
 
 /*
   Define a data CONTEXT to store the data we want to use in React.
@@ -22,19 +22,74 @@ export const TagContext = createContext();
 */
 export const TagProvider = (props) => {
   // Defines a variable that holds the state of the component, and a function that updates it
-  const [tags, setTags] = useState([]);
+  const [tags, setTagState] = useState([]);
 
-  // Get all tags in a user's library
-  const getZoteroTags = () => {
+  // Get the user ID for logged in user
+  const user = JSON.parse(localStorage.getItem("zotero_user"));
+  const userKey = user[0];
+  const userID = user[1];
+
+  // Add authentication key to requests
+  const requestHeaders = new Headers();
+  requestHeaders.append("Zotero-API-Key", userKey);
+  requestHeaders.append("Content-Type", "application/json");
+
+  // Set options for the fetch call
+  const getOptions = {
+    method: "GET",
+    headers: requestHeaders,
+    redirect: "follow",
+  };
+
+  // Return all tags in a user's library
+  const getAllTags = () => {
     return fetch(
-      `https://api.zotero.org/users/${settings.zoteroUserID}/tags?format=json&v=3`,
-      {
-        method: "GET",
-        headers: { "Zotero-API-Key": settings.zoteroAPIkey },
-      }
+      `https://api.zotero.org/users/${userID}/tags?format=json&v=3`,
+      getOptions
     )
-      .then((r) => r.json())
-      .then(setTags);
+      .then((response) => response.json())
+      .then(setTagState)
+      .catch((error) => console.log("error", error));
+  };
+
+  // Return all tags in a specific collection
+  const getTagsByCollection = (collectionKey) => {
+    return fetch(
+      `https://api.zotero.org/users/${userID}/collections/${collectionKey}/tags?format=json&v=3`,
+      getOptions
+    )
+      .then((response) => response.json())
+      .then(setTagState)
+      .catch((error) => console.log("error", error));
+  };
+
+  // Return all tags on a specific item
+  const getTagsByItem = (itemKey) => {
+    return fetch(
+      `https://api.zotero.org/users/${userID}/items/${itemKey}/tags?format=json&v=3`,
+      getOptions
+    )
+      .then((response) => response.json())
+      .then(setTagState)
+      .catch((error) => console.log("error", error));
+  };
+
+  // Delete a tag from everywhere in the library
+  const deleteTag = (tagString, versionKey) => {
+    requestHeaders.append("If-Unmodified-Since-Version", versionKey);
+
+    // Change options for delete requests
+    var requestOptions = {
+      method: "DELETE",
+      headers: requestHeaders,
+      redirect: "follow",
+    };
+    return fetch(
+      `https://api.zotero.org/users/${userID}/tags?tag=${tagString}`,
+      requestOptions
+    )
+      .then(getAllTags)
+      .catch((error) => console.log("error", error));
   };
 
   /*
@@ -46,7 +101,11 @@ export const TagProvider = (props) => {
     <TagContext.Provider
       value={{
         tags,
-        getZoteroTags,
+        setTagState,
+        getAllTags,
+        getTagsByCollection,
+        getTagsByItem,
+        deleteTag
       }}
     >
       {props.children}

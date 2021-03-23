@@ -1,8 +1,8 @@
 /* 
-Data provider component to get and modify tasks in a local database.
+Data provider component to get and modify collections from Zotero
 */
 import React, { useState, createContext } from "react";
-import { settings } from "../../settings.js";
+//import { settings } from "../../settings.js";
 
 /*
   Define a data CONTEXT to store the data we want to use in React.
@@ -22,19 +22,123 @@ export const CollectionContext = createContext();
 */
 export const CollectionProvider = (props) => {
   // Defines a variable that holds the state of the component, and a function that updates it
-  const [collections, setCollections] = useState([]);
+  const [collections, setCollectionState] = useState([]);
+  const [singleCollection, setSingleCollection] = useState([]);
 
-  // Get all collections in a user's library
-  const getZoteroCollections = () => {
+  // Get the user ID for logged in user
+  const user = JSON.parse(localStorage.getItem("zotero_user"));
+  const userKey = user[0];
+  const userID = user[1];
+
+  // Add authentication key to requests
+  const requestHeaders = new Headers();
+  requestHeaders.append("Zotero-API-Key", userKey);
+  requestHeaders.append("Content-Type", "application/json");
+
+  // Set options for the fetch call
+  const getOptions = {
+    method: "GET",
+    headers: requestHeaders,
+    redirect: "follow",
+  };
+
+  // Return all collections in user's library
+  const getAllCollections = () => {
     return fetch(
-      `https://api.zotero.org/users/${settings.zoteroUserID}/collections?format=json&v=3`,
-      {
-        method: "GET",
-        headers: { "Zotero-API-Key": settings.zoteroAPIkey },
-      }
+      `https://api.zotero.org/users/${userID}/collections?format=json&v=3`,
+      getOptions
     )
-      .then((r) => r.json())
-      .then(setCollections);
+      .then((response) => response.json())
+      .then(setCollectionState)
+      .catch((error) => console.log("error", error));
+  };
+
+  // Return a specific collection in user's library
+  const getOneCollection = (collectionKey) => {
+    return fetch(
+      `https://api.zotero.org/users/${userID}/collections/WUJZNXCA?format=json&v=3`,
+      getOptions
+    )
+      .then((response) => response.json())
+      .then(setSingleCollection)
+      .catch((error) => console.log("error", error));
+  };
+
+  // Return only the user's top-level collections
+  const getTopCollections = () => {
+    return fetch(
+      `https://api.zotero.org/users/${userID}/collections/top?format=json&v=3`,
+      getOptions
+    )
+      .then((response) => response.json())
+      .then(setCollectionState)
+      .catch((error) => console.log("error", error));
+  };
+
+  // Return subcollections in a specific collection
+  const getSubcollections = (collectionKey) => {
+    return fetch(
+      `https://api.zotero.org/users/${userID}/collections/${collectionKey}/collections?format=json&v=3`,
+      getOptions
+    )
+      .then((response) => response.json())
+      .then(setCollectionState)
+      .catch((error) => console.log("error", error));
+  };
+
+  // Create a new collection in user's library
+  const newCollection = (userAddition) => {
+    var raw = JSON.stringify(userAddition);
+    // Change options for adding requests
+    var requestOptions = {
+      method: "POST",
+      headers: requestHeaders,
+      body: raw,
+      redirect: "follow",
+    };
+
+    return fetch(
+      `https://api.zotero.org/users/${userID}/collections`,
+      requestOptions
+    )
+      .then(getAllCollections)
+      .catch((error) => console.log("error", error));
+  };
+
+  // Edit a specific collection in user's library. This replaces all the fields in the data array with both the modified fields and other unmodified fields if any. Version field should be the current version before editing
+  const editCollection = (collectionKey, userChanges) => {
+    var raw = JSON.stringify(userChanges);
+    // Change options for edit requests
+    var requestOptions = {
+      method: "PUT",
+      headers: requestHeaders,
+      body: raw,
+      redirect: "follow",
+    };
+    return fetch(
+      `https://api.zotero.org/users/${userID}/collections/${collectionKey}`,
+      requestOptions
+    )
+      .then(getAllCollections)
+      .catch((error) => console.log("error", error));
+  };
+
+  // Delete a specific collection in user's library.
+  const deleteCollection = (collectionKey, versionKey) => {
+    requestHeaders.append("If-Unmodified-Since-Version", versionKey);
+
+    // Change options for delete requests
+    var requestOptions = {
+      method: "DELETE",
+      headers: requestHeaders,
+      redirect: "follow",
+    };
+    return fetch(
+      `https://api.zotero.org/users/${userID}/collections/${collectionKey}`,
+      requestOptions
+    )
+      .then(getAllCollections)
+      .catch((error) => console.log("error", error));
   };
 
   /*
@@ -46,7 +150,16 @@ export const CollectionProvider = (props) => {
     <CollectionContext.Provider
       value={{
         collections,
-        getZoteroCollections,
+        setCollectionState,
+        singleCollection,
+        setSingleCollection,
+        getAllCollections,
+        getOneCollection,
+        getTopCollections,
+        getSubcollections,
+        newCollection,
+        editCollection,
+        deleteCollection,
       }}
     >
       {props.children}

@@ -2,7 +2,7 @@
 Data provider component to get and modify tasks in a local database.
 */
 import React, { useState, createContext } from "react";
-import { settings } from "../../settings.js";
+//import { settings } from "../../settings.js";
 
 /*
   Define a data CONTEXT to store the data we want to use in React.
@@ -11,6 +11,8 @@ import { settings } from "../../settings.js";
     const tasks = []
 */
 export const ItemContext = createContext();
+
+const user = JSON.parse(localStorage.getItem("zotero_user"));
 
 /*
   Define a data provider COMPONENT that other components use to get the data in the context.
@@ -25,13 +27,13 @@ export const ItemProvider = (props) => {
   const [items, setItems] = useState([]);
   const [singleItem, setSingleItem] = useState([]);
 
-  // Get all items-parents and children-in a user's library
+  // Get all items (parents and children) in a user's library
   const getZoteroItems = () => {
     return fetch(
-      `https://api.zotero.org/users/${settings.zoteroUserID}/items?format=json&v=3`,
+      `https://api.zotero.org/users/${user[1]}/items?format=json&v=3`,
       {
         method: "GET",
-        headers: { "Zotero-API-Key": settings.zoteroAPIkey },
+        headers: { "Zotero-API-Key": user[0] },
       }
     )
       .then((r) => r.json())
@@ -41,10 +43,10 @@ export const ItemProvider = (props) => {
   // Get all the info for a specific item by its key
   const getItemByKey = (itemKey) => {
     return fetch(
-      `https://api.zotero.org/users/${settings.zoteroUserID}/items/${itemKey}`,
+      `https://api.zotero.org/users/${user[1]}/items/${itemKey}`,
       {
         method: "GET",
-        headers: { "Zotero-API-Key": settings.zoteroAPIkey },
+        headers: { "Zotero-API-Key": user[0] },
       }
     )
       .then((r) => r.json())
@@ -54,10 +56,10 @@ export const ItemProvider = (props) => {
   // Post a change to a specifc item's tag
   const editTagOfItem = (itemKey, itemBody) => {
     return fetch(
-      `https://api.zotero.org/users/${settings.zoteroUserID}/items/${itemKey}`,
+      `https://api.zotero.org/users/${user[1]}/items/${itemKey}`,
       {
         method: "PUT",
-        headers: { "Zotero-API-Key": settings.zoteroAPIkey },
+        headers: { "Zotero-API-Key": user[0] },
         body: JSON.stringify(itemBody)
       })
       // .then((r) => r.json())

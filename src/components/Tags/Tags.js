@@ -10,7 +10,7 @@ export const TagsList = () => {
     functions that a parent provider component exposes.
 
   */
-  const { getZoteroTags, tags } = useContext(TagContext);
+  const { getAllTags, tags, deleteTag } = useContext(TagContext);
 
   /*
     useEffect() allows for getting the data from somewhere else.
@@ -18,7 +18,6 @@ export const TagsList = () => {
     is only run at first load and never again because it's not given any trigger.
   */
   useEffect(() => {
-    getZoteroTags();
   }, []);
 
   return (
