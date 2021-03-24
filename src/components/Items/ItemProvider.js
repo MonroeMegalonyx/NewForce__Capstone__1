@@ -124,13 +124,14 @@ export const ItemProvider = (props) => {
       body: raw,
       redirect: "follow",
     };
-    return fetch(`https://api.zotero.org/users/${userID}/items/`,
-    requestOptions
+    return fetch(
+      `https://api.zotero.org/users/${userID}/items/`,
+      requestOptions
     )
       .then(getAllItems)
       .catch((error) => console.log("error", error));
   };
-  
+
   /*
     Edit a specific item in user's library. This replaces all the fields in the data array with both the modified fields and other unmodified fields if any. Version field should be the current version before editing.
     Items have a data array that can be directly edited and sent back. The fields "itemType", "tags", "collections", and "relations" are required.
@@ -144,8 +145,9 @@ export const ItemProvider = (props) => {
       body: raw,
       redirect: "follow",
     };
-    return fetch(`https://api.zotero.org/users/${userID}/items/${itemKey}`
-    requestOptions
+    return fetch(
+      `https://api.zotero.org/users/${userID}/items/${itemKey}`,
+      requestOptions
     )
       .then(getAllItems)
       .catch((error) => console.log("error", error));
@@ -165,8 +167,9 @@ export const ItemProvider = (props) => {
       body: raw,
       redirect: "follow",
     };
-    return fetch(`https://api.zotero.org/users/${userID}/items/${itemKey}`
-    requestOptions
+    return fetch(
+      `https://api.zotero.org/users/${userID}/items/${itemKey}`,
+      requestOptions
     )
       .then(getAllItems)
       .catch((error) => console.log("error", error));
@@ -191,7 +194,7 @@ export const ItemProvider = (props) => {
       `https://api.zotero.org/users/${userID}/items/${itemKey}`,
       requestOptions
     )
-      .then(getAllCollections)
+      .then(getAllItems)
       .catch((error) => console.log("error", error));
   };
 
@@ -211,9 +214,10 @@ export const ItemProvider = (props) => {
         getChildrenOfItem,
         getItemsByCollection,
         getTopItemsByCollection,
-        addItem,
+        newItem,
         editItem,
-        editPartialItem
+        editPartialItem,
+        deleteItem,
       }}
     >
       {props.children}
