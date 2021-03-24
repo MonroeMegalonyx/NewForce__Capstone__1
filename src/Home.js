@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { ItemsList } from "./components/Items/ItemList";
 import { TagsList } from "./components/Tags/TagList";
 import { CollectionsList } from "./components/Collections/CollectionList";
@@ -7,6 +7,11 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 export const Home = () => {
   const user = JSON.parse(localStorage.getItem("zotero_user"));
+
+  /*
+    Which collection was most recently clicked by the user.
+  */
+  let [collectionSelect, setCollectionSelect] = useState();
 
   return (
     <>
@@ -27,7 +32,7 @@ export const Home = () => {
         <section className="container--content">
           <section className="container--sidebar">
             <div className="container--collections">
-              <CollectionsList />
+              <CollectionsList selectedCollection={setCollectionSelect}/>
             </div>
             <div className="container--tags">
               <TagsList />
@@ -35,7 +40,7 @@ export const Home = () => {
           </section>
           <section className="container--list">
             <div className="container--items">
-              <ItemsList />
+              <ItemsList collectionState={collectionSelect}/>
             </div>
           </section>
         </section>

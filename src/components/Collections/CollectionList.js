@@ -6,8 +6,8 @@ import { CollectionContext } from "./CollectionProvider";
 import { CollectionCard } from "./Collection";
 //import "./Collection.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-
-export const CollectionsList = () => {
+// Bringing in the parent state change function for which collection is selected and passing that to the cards when printed
+export const CollectionsList = ({selectedCollection}) => {
   /*
     The useContext hook allows you to use data structures and 
     functions that a parent provider component exposes.
@@ -41,7 +41,7 @@ export const CollectionsList = () => {
       <div className="collections">
         {console.log("CollectionList: Render", collections)}
         {collections.map((collection) => {
-          return <CollectionCard key={collection.key} collection={collection} />;
+          return <CollectionCard key={collection.key} collection={collection} selectCollection={selectedCollection}/>;
         })}
       </div>
     </>

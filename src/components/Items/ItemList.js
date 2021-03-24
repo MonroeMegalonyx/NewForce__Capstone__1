@@ -7,7 +7,7 @@ import { ItemCard } from "./Item";
 //import "./Item.css"
 import "bootstrap/dist/css/bootstrap.min.css";
 
-export const ItemsList = () => {
+export const ItemsList = ({ collectionState }) => {
   /*
     The useContext hook allows you to use data structures and 
     functions that a parent provider component exposes.
@@ -48,7 +48,9 @@ export const ItemsList = () => {
       <div className="items">
         {console.log("ItemList: Render", items)}
         {items.map((item) => {
-          return <ItemCard key={item.key} item={item} />;
+          return collectionState ? (item.data.collections.includes(collectionState) ?(
+            <ItemCard key={item.key} item={item} />
+          ):null) : null;
         })}
       </div>
     </>
