@@ -74,7 +74,11 @@ export const TagProvider = (props) => {
       .catch((error) => console.log("error", error));
   };
 
-  // Delete a tag from everywhere in the library
+  /*
+    Delete a tag from everywhere in the library.
+    Adding new tags can be done directly in an item's data.
+    Editing current tags can not be done in bulk to all instances of that tag via the API, but each item's tags can be edited
+  */
   const deleteTag = (tagString, versionKey) => {
     requestHeaders.append("If-Unmodified-Since-Version", versionKey);
 

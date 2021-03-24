@@ -44,7 +44,7 @@ export const CollectionsList = () => {
 
   const handleClick = () => {
     console.log(collections)
-    deleteCollection(test, version);
+
   };
 
   return (

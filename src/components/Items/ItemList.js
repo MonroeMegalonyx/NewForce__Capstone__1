@@ -10,7 +10,14 @@ export const ItemsList = () => {
     functions that a parent provider component exposes.
 
   */
-  const { getZoteroItems, items } = useContext(ItemContext);
+  const {
+    getChildrenOfItem,
+    getItemByKey,
+    items,
+    singleItem,
+    getTopItems,
+    getItemsByCollection,
+  } = useContext(ItemContext);
 
   /*
     useEffect() allows for getting the data from somewhere else.
@@ -18,13 +25,22 @@ export const ItemsList = () => {
     is only run at first load and never again because it's not given any trigger.
   */
   useEffect(() => {
-    getZoteroItems();
+    //getChildrenOfItem("7XM8E4CQ");
+    //getTopItems();
+    //getItemByKey("U5MNWYH6");
+    getItemsByCollection("MJF7RCTJ")
   }, []);
 
   return (
     <>
       <h2>Zotero Item Feed</h2>
-      <button id="console-log" onClick={() => console.log(items)}>
+      <button
+        id="console-log"
+        onClick={() => {
+          console.log(items);
+          //console.log(singleItem);
+        }}
+      >
         Console log items API
       </button>
     </>

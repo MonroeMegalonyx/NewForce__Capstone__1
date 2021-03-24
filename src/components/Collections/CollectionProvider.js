@@ -53,18 +53,7 @@ export const CollectionProvider = (props) => {
       .catch((error) => console.log("error", error));
   };
 
-  // Return a specific collection in user's library
-  const getOneCollection = (collectionKey) => {
-    return fetch(
-      `https://api.zotero.org/users/${userID}/collections/WUJZNXCA?format=json&v=3`,
-      getOptions
-    )
-      .then((response) => response.json())
-      .then(setSingleCollection)
-      .catch((error) => console.log("error", error));
-  };
-
-  // Return only the user's top-level collections
+  // Return only top-level collections in the user's library
   const getTopCollections = () => {
     return fetch(
       `https://api.zotero.org/users/${userID}/collections/top?format=json&v=3`,
@@ -72,6 +61,17 @@ export const CollectionProvider = (props) => {
     )
       .then((response) => response.json())
       .then(setCollectionState)
+      .catch((error) => console.log("error", error));
+  };
+
+  // Return a specific collection in user's library
+  const getCollectionByKey = (collectionKey) => {
+    return fetch(
+      `https://api.zotero.org/users/${userID}/collections/${collectionKey}?format=json&v=3`,
+      getOptions
+    )
+      .then((response) => response.json())
+      .then(setSingleCollection)
       .catch((error) => console.log("error", error));
   };
 
@@ -86,7 +86,10 @@ export const CollectionProvider = (props) => {
       .catch((error) => console.log("error", error));
   };
 
-  // Create a new collection in user's library
+  /*
+    Create a new collection in user's library.
+    New folder should be an array that has "name" and "parentCollection" key if any.
+  */
   const newCollection = (userAddition) => {
     var raw = JSON.stringify(userAddition);
     // Change options for adding requests
@@ -105,7 +108,10 @@ export const CollectionProvider = (props) => {
       .catch((error) => console.log("error", error));
   };
 
-  // Edit a specific collection in user's library. This replaces all the fields in the data array with both the modified fields and other unmodified fields if any. Version field should be the current version before editing
+  /*
+    Edit a specific collection in user's library. This replaces all the fields in the data array with both the modified fields and other unmodified fields if any. Version field should be the current version before editing.
+    Collections should be an array that has "key", "version", "name", and "parentCollection" if any.
+  */
   const editCollection = (collectionKey, userChanges) => {
     var raw = JSON.stringify(userChanges);
     // Change options for edit requests
@@ -125,6 +131,7 @@ export const CollectionProvider = (props) => {
 
   // Delete a specific collection in user's library.
   const deleteCollection = (collectionKey, versionKey) => {
+    // Add version number to header to validate API call, may need to add this step to other write calls for full functionality
     requestHeaders.append("If-Unmodified-Since-Version", versionKey);
 
     // Change options for delete requests
@@ -154,7 +161,7 @@ export const CollectionProvider = (props) => {
         singleCollection,
         setSingleCollection,
         getAllCollections,
-        getOneCollection,
+        getCollectionByKey,
         getTopCollections,
         getSubcollections,
         newCollection,
