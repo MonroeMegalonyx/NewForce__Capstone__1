@@ -10,9 +10,9 @@ class NavBar extends Component {
             <nav className="navbar bg-dark text-white flex-md-nowrap p-0 shadow">
                 <ul className="nav nav-pills nav-fill">
                     <li className="nav-item">
-                        <Link className="nav-link" to="/">Home</Link>
+                        <Link className="nav-link" to="/">My Library</Link>
                     </li>
-                    <li className="nav-item">
+                    {/* <li className="nav-item">
                         <Link className="nav-link" to="/items">My Library</Link>
                     </li>
                     <li className="nav-item">
@@ -20,7 +20,7 @@ class NavBar extends Component {
                     </li>
                     <li className="nav-item">
                         <Link className="nav-link" to="/collections">Collections TEST</Link>
-                    </li>
+                    </li> */}
                 </ul>
                 <span className="navbar-text">
                     <ul className="nav nav-pills nav-fill">

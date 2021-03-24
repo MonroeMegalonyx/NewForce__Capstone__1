@@ -8,6 +8,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 export const CollectionCard = ({ collection }) => (
   <section className="collection">
-    <h3 className="collection__name">Collection: {collection.data.name}</h3>
+    <p className="collection__name">Collection: {collection.data.name}</p>
   </section>
 );

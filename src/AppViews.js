@@ -5,12 +5,12 @@ import React, { Component } from "react";
 import { Route } from "react-router-dom";
 import { Home } from "./Home";
 import { ItemProvider } from "./components/Items/ItemProvider";
-import { ItemsList } from "./components/Items/ItemList";
-//import { ItemCard } from "./components/Items/ItemDetail";
+// import { ItemsList } from "./components/Items/ItemList";
+// import { ItemCard } from "./components/Items/ItemDetail";
 import { TagProvider } from "./components/Tags/TagProvider";
-import { TagsList } from "./components/Tags/TagList";
+// import { TagsList } from "./components/Tags/TagList";
 import { CollectionProvider } from "./components/Collections/CollectionProvider";
-import { CollectionsList } from "./components/Collections/CollectionList";
+// import { CollectionsList } from "./components/Collections/CollectionList";
 
 export default class ApplicationViews extends Component {
   render() {
@@ -26,21 +26,21 @@ export default class ApplicationViews extends Component {
                   return <Home />;
                 }}
               />
-              <Route
+              {/* <Route
                 exact
                 path="/items"
                 render={(props) => {
                   return <ItemsList />;
                 }}
               />
-              {/* <Route
+              <Route
                 exact
                 path="/items/:itemID"
                 component={ItemCard}
                 render={(props) => {
                   return <ItemCard />;
                 }}
-              /> */}
+              />
               <Route
                 path="/tags"
                 render={(props) => {
@@ -52,7 +52,7 @@ export default class ApplicationViews extends Component {
                 render={(props) => {
                   return <CollectionsList />;
                 }}
-              />
+              /> */}
             </TagProvider>
           </CollectionProvider>
         </ItemProvider>

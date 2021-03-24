@@ -8,6 +8,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 export const TagCard = ({ tag }) => (
   <section className="tag">
-    <h3 className="tag__name">Tag: {tag.tag}</h3>
+    <p className="tag__name">Tag: {tag.tag}</p>
   </section>
 );

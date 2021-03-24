@@ -8,6 +8,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 export const ItemCard = ({ item }) => (
   <section className="item">
-    <h3 className="item__name">Item: {item.data.title}</h3>
+    <p className="item__name">Item: {item.data.title}</p>
   </section>
 );
