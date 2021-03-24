@@ -3,6 +3,9 @@
 */
 import React, { useContext, useEffect } from "react";
 import { ItemContext } from "./ItemProvider";
+import { ItemCard } from "./Item";
+//import "./Item.css"
+import "bootstrap/dist/css/bootstrap.min.css";
 
 export const ItemsList = () => {
   /*
@@ -11,12 +14,18 @@ export const ItemsList = () => {
 
   */
   const {
-    getChildrenOfItem,
-    getItemByKey,
     items,
-    singleItem,
+    getAllItems,
     getTopItems,
+    singleItem,
+    getItemByKey,
+    getChildrenOfItem,
     getItemsByCollection,
+    getTopItemsByCollection,
+    newItem,
+    editItem,
+    editPartialItem,
+    deleteItem,
   } = useContext(ItemContext);
 
   /*
@@ -25,24 +34,23 @@ export const ItemsList = () => {
     is only run at first load and never again because it's not given any trigger.
   */
   useEffect(() => {
-    //getChildrenOfItem("7XM8E4CQ");
-    //getTopItems();
-    //getItemByKey("U5MNWYH6");
-    getItemsByCollection("MJF7RCTJ")
+    /*
+      getChildrenOfItem("7XM8E4CQ");
+      getTopItems();
+      getItemByKey("U5MNWYH6");
+      getItemsByCollection("MJF7RCTJ")
+    */
+    getTopItems();
   }, []);
 
   return (
     <>
-      <h2>Zotero Item Feed</h2>
-      <button
-        id="console-log"
-        onClick={() => {
-          console.log(items);
-          //console.log(singleItem);
-        }}
-      >
-        Console log items API
-      </button>
+      <div className="items">
+        {console.log("ItemList: Render", items)}
+        {items.map((item) => {
+          return <ItemCard key={item.key} item={item} />;
+        })}
+      </div>
     </>
   );
 };

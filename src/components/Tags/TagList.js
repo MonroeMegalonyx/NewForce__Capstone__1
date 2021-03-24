@@ -3,6 +3,9 @@
 */
 import React, { useContext, useEffect } from "react";
 import { TagContext } from "./TagProvider";
+import { TagCard } from "./Tag";
+//import "./Tag.css"
+import "bootstrap/dist/css/bootstrap.min.css";
 
 export const TagsList = () => {
   /*
@@ -10,7 +13,14 @@ export const TagsList = () => {
     functions that a parent provider component exposes.
 
   */
-  const { getAllTags, tags, deleteTag } = useContext(TagContext);
+  const {
+    tags,
+    setTagState,
+    getAllTags,
+    getTagsByCollection,
+    getTagsByItem,
+    deleteTag,
+  } = useContext(TagContext);
 
   /*
     useEffect() allows for getting the data from somewhere else.
@@ -18,14 +28,17 @@ export const TagsList = () => {
     is only run at first load and never again because it's not given any trigger.
   */
   useEffect(() => {
+    getAllTags();
   }, []);
 
   return (
     <>
-      <h2>Zotero Tags</h2>
-      <button id="console-log" onClick={() => console.log(tags)}>
-        Console log tags API
-      </button>
+      <div className="tags">
+        {console.log("TagList: Render", tags)}
+        {tags.map((tag) => {
+          return <TagCard key={tag.id} tag={tag} />;
+        })}
+      </div>
     </>
   );
 };
