@@ -7,7 +7,7 @@ import { TagCard } from "./Tag";
 //import "./Tag.css"
 import "bootstrap/dist/css/bootstrap.min.css";
 
-export const TagsList = () => {
+export const TagsList = ({selectedTag}) => {
   /*
     The useContext hook allows you to use data structures and 
     functions that a parent provider component exposes.
@@ -36,7 +36,7 @@ export const TagsList = () => {
       <div className="tags">
         {console.log("TagList: Render", tags)}
         {tags.map((tag) => {
-          return <TagCard key={tag.tag} tag={tag} />;
+          return <TagCard key={tag.tag} tag={tag} selectTag={selectedTag}/>;
         })}
       </div>
     </>

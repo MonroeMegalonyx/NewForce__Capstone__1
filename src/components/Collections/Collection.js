@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom";
 //import "./Collection.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -9,6 +9,11 @@ import "bootstrap/dist/css/bootstrap.min.css";
 // Use selectCollection to update the parent state in Home when a user clicks the name of a collection. This allows filtering on that name
 export const CollectionCard = ({ collection, selectCollection }) => (
   <section className="collection">
-    <button className="collection__name" onClick={() => selectCollection(collection.key)}>Collection: {collection.data.name}</button>
+    <button
+      className="collection__name"
+      onClick={() => selectCollection(collection.key)}
+    >
+      Collection: {collection.data.name}
+    </button>
   </section>
 );

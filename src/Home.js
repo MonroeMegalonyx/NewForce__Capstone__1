@@ -12,6 +12,7 @@ export const Home = () => {
     Which collection was most recently clicked by the user.
   */
   let [collectionSelect, setCollectionSelect] = useState();
+  let [tagSelect, setTagSelect] = useState();
 
   return (
     <>
@@ -35,12 +36,12 @@ export const Home = () => {
               <CollectionsList selectedCollection={setCollectionSelect}/>
             </div>
             <div className="container--tags">
-              <TagsList />
+              <TagsList selectedTag={setTagSelect}/>
             </div>
           </section>
           <section className="container--list">
             <div className="container--items">
-              <ItemsList collectionState={collectionSelect}/>
+              <ItemsList collectionState={collectionSelect} tagState={tagSelect}/>
             </div>
           </section>
         </section>
