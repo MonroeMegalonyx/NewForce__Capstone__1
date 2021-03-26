@@ -34,6 +34,7 @@ export const TagsList = ({selectedTag}) => {
   return (
     <>
       <div className="tags">
+        <h2>Tags</h2>
         {console.log("TagList: Render", tags)}
         {tags.map((tag) => {
           return <TagCard key={tag.tag} tag={tag} selectTag={selectedTag}/>;

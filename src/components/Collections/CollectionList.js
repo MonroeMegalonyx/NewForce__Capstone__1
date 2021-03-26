@@ -39,6 +39,7 @@ export const CollectionsList = ({selectedCollection}) => {
   return (
     <>
       <div className="collections">
+        <h2>Collections</h2>
         {console.log("CollectionList: Render", collections)}
         {collections.map((collection) => {
           return <CollectionCard key={collection.key} collection={collection} selectCollection={selectedCollection}/>;

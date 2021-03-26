@@ -1,13 +1,13 @@
 /*
   Component to list all items. 
 */
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { ItemContext } from "./ItemProvider";
 import { ItemCard } from "./Item";
 //import "./Item.css"
 import "bootstrap/dist/css/bootstrap.min.css";
 
-export const ItemsList = ({ collectionState, tagState }) => {
+export const ItemsList = ({ sortState, collectionState, tagState }) => {
   /*
     The useContext hook allows you to use data structures and 
     functions that a parent provider component exposes.
@@ -43,11 +43,23 @@ export const ItemsList = ({ collectionState, tagState }) => {
     getTopItems();
   }, []);
 
+    const plan = ()  => {
+
+      return sortState.meta !== ""?
+
+      console.log("ItemList: Render", sortState, items[0][sortState.meta.split(".")[0]][sortState.meta.split(".")[1]])
+      :
+      ""
+    }
+
   return (
     <>
       <div className="items">
-        {console.log("ItemList: Render", items)}
+        
         {items.map((item) => {
+
+          plan()
+         
           return (
             // First check if the user has selected a folder/tag combination to filter items
             collectionState && tagState ? (

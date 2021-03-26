@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useImperativeHandle, useState } from "react";
 import { ItemsList } from "./components/Items/ItemList";
 import { TagsList } from "./components/Tags/TagList";
 import { CollectionsList } from "./components/Collections/CollectionList";
@@ -13,6 +13,14 @@ export const Home = () => {
   */
   let [collectionSelect, setCollectionSelect] = useState();
   let [tagSelect, setTagSelect] = useState();
+  
+  /*
+    Name of the data attribute to sort by. 
+  */
+  let [sortProp, setSortProp] = useState({meta:""});
+  const handleSortSelection = (event) => {
+    setSortProp({meta:event.target.value})
+  }
 
   return (
     <>
@@ -30,6 +38,21 @@ export const Home = () => {
             culpa qui officia deserunt mollit anim id est laborum.
           </p>
         </section>
+        <section className="container--searchbar">
+          <fieldset>
+              <div className="form-group">
+                  <select onChange={handleSortSelection} defaultValue="placeholder" name="sortID" id="sortID" className="form-control">
+                      <option value={"placeholder"}>Sort by...</option>
+                      <option key={1} value={"data.title"}>{"Title"}</option>
+                      <option key={2} value={"meta.creatorSummary"}>{"Author(s)"}</option>
+                      <option key={3} value={"meta.parsedDate"}>{"Year published"}</option>
+                      <option key={4} value={"data.dateAdded"}>{"Date added"}</option>
+                      <option key={5} value={"data.dateModified"}>{"Date modified"}</option>
+                      <option key={6} value={"data.itemType"}>{"Item type"}</option>
+                  </select>
+              </div>
+          </fieldset>
+        </section>
         <section className="container--content">
           <section className="container--sidebar">
             <div className="container--collections">
@@ -41,7 +64,7 @@ export const Home = () => {
           </section>
           <section className="container--list">
             <div className="container--items">
-              <ItemsList collectionState={collectionSelect} tagState={tagSelect}/>
+              <ItemsList sortState={sortProp} collectionState={collectionSelect} tagState={tagSelect}/>
             </div>
           </section>
         </section>
