@@ -36,7 +36,14 @@ export const Home = () => {
     if (searchTerms !== "") {
       // Display items matching search filter if search field is not blank
       const searchReturn = items.filter((item) =>
-        item.data.title.toLowerCase().includes(searchTerms)
+        item.data.title.toLowerCase().includes(searchTerms) ||
+        item.data.shortTitle?.toLowerCase().includes(searchTerms) ||
+        item.data.publicationTitle?.toLowerCase().includes(searchTerms) ||
+        item.data.journalAbbreviation?.toLowerCase().includes(searchTerms) ||
+        item.data.institution?.toLowerCase().includes(searchTerms) ||
+        item.data.abstractNote?.toLowerCase().includes(searchTerms) ||
+        item.meta.creatorSummary?.toLowerCase().includes(searchTerms) ||
+        item.meta.parsedDate?.includes(searchTerms)       
       );
       setSearchFilter(searchReturn);
     } else {
