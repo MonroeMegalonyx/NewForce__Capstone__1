@@ -7,35 +7,6 @@ import "./Item.css"
 import "bootstrap/dist/css/bootstrap.min.css";
 
 export const ItemsList = ({ itemArr, collectionState, tagState }) => {
-  /*
-    The useContext hook allows you to use data structures and 
-    functions that a parent provider component exposes.
-
-  */
-  // const {
-  //   items,
-  //   setItems,
-  //   getAllItems,
-  //   getTopItems,
-  //   singleItem,
-  //   getItemByKey,
-  //   getChildrenOfItem,
-  //   getItemsByCollection,
-  //   getTopItemsByCollection,
-  //   newItem,
-  //   editItem,
-  //   editPartialItem,
-  //   deleteItem,
-  // } = useContext(ItemContext);
-
-  /*
-    useEffect() allows for getting the data from somewhere else.
-    The empty brackets [] are a dependency array and mean this 
-    is only run at first load and never again because it's not given any trigger.
-  */
-  // useEffect(() => {
-  //   getAllItems()
-  // }, []);
 
 
   return (

@@ -26,33 +26,6 @@ export default class ApplicationViews extends Component {
                   return <Home />;
                 }}
               />
-              {/* <Route
-                exact
-                path="/items"
-                render={(props) => {
-                  return <ItemsList />;
-                }}
-              />
-              <Route
-                exact
-                path="/items/:itemID"
-                component={ItemCard}
-                render={(props) => {
-                  return <ItemCard />;
-                }}
-              />
-              <Route
-                path="/tags"
-                render={(props) => {
-                  return <TagsList />;
-                }}
-              />
-              <Route
-                path="/collections"
-                render={(props) => {
-                  return <CollectionsList />;
-                }}
-              /> */}
             </TagProvider>
           </CollectionProvider>
         </ItemProvider>

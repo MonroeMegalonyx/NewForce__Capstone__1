@@ -24,6 +24,8 @@ export const ItemProvider = (props) => {
   // Defines a variable that holds the state of the component, and a function that updates it
   const [items, setItems] = useState([]);
   const [singleItem, setSingleItem] = useState([]);
+  // Define a state for search terms
+  const [ searchTerms, setSearchTerms ] = useState([])
 
   // Get the user ID for logged in user
   const user = JSON.parse(localStorage.getItem("zotero_user"));
@@ -208,9 +210,12 @@ export const ItemProvider = (props) => {
       value={{
         items,
         setItems,
+        singleItem,
+        setSingleItem,
+        searchTerms,
+        setSearchTerms,
         getAllItems,
         getTopItems,
-        singleItem,
         getItemByKey,
         getChildrenOfItem,
         getItemsByCollection,
