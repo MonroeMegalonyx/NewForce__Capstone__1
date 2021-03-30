@@ -55,26 +55,28 @@ export const Home = () => {
     Update items array in State to be sorted by which button the user selects and pass that updated array to the ItemList component. 
   */
   const handleSortSelection = (event) => {
-    sortItemsByClick(event.target.value);
+    if (event.target.value !== "") {
+    console.log("Sorting items...");
+    sortItemsByClick(event.target.value)}
   };
 
   const sortItemsByClick = (sortAttribute) => {
     const sortedArr = [...items];
-    console.log("ItemList: Render", sortedArr);
+    
     sortedArr.sort((a, b) => {
       console.log(
-        a[sortAttribute.split(".")[0]][sortAttribute.split(".")[1]] >
-          b[sortAttribute.split(".")[0]][sortAttribute.split(".")[1]]
+        a[sortAttribute?.split(".")[0]][sortAttribute?.split(".")[1]] >
+          b[sortAttribute?.split(".")[0]][sortAttribute?.split(".")[1]]
       );
 
       if (
-        a[sortAttribute.split(".")[0]][sortAttribute.split(".")[1]] >
-        b[sortAttribute.split(".")[0]][sortAttribute.split(".")[1]]
+        a[sortAttribute?.split(".")[0]][sortAttribute?.split(".")[1]] >
+        b[sortAttribute?.split(".")[0]][sortAttribute?.split(".")[1]]
       )
         return 1;
       if (
-        a[sortAttribute.split(".")[0]][sortAttribute.split(".")[1]] <
-        b[sortAttribute.split(".")[0]][sortAttribute.split(".")[1]]
+        a[sortAttribute?.split(".")[0]][sortAttribute?.split(".")[1]] <
+        b[sortAttribute?.split(".")[0]][sortAttribute?.split(".")[1]]
       )
         return -1;
       return 0;
@@ -107,7 +109,7 @@ export const Home = () => {
           <fieldset>
             <select
               onChange={handleSortSelection}
-              defaultValue=""
+              defaultValue= ""
               name="sortID"
               id="sortID"
               className="form-control"
@@ -128,9 +130,9 @@ export const Home = () => {
               <option key={5} value={"data.dateModified"}>
                 {"Date modified"}
               </option>
-              <option key={6} value={"data.itemType"}>
+              {/* <option key={6} value={"data.itemType"}>
                 {"Item type"}
-              </option>
+              </option> */}
             </select>
           </fieldset>
         </section>

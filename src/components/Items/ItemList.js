@@ -1,13 +1,18 @@
 /*
   Component to list all items. 
 */
-import React from "react";
+import React, { useState } from "react";
 import { ItemCard } from "./Item";
+import { ItemForm } from "./ItemForm";
 import "./Item.css"
 import "bootstrap/dist/css/bootstrap.min.css";
 
 export const ItemsList = ({ itemArr, collectionState, tagState }) => {
-
+  /*
+    Set a form display state to change when the edit edit form is rendered and which item is being edited.
+  */
+    let [displayForm, setDisplayForm] = useState(false);
+    let [itemIdToEdit, setItemIdToEdit] = useState(0);
 
   return (
     <>

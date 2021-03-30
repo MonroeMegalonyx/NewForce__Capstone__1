@@ -9,7 +9,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 export const ItemCard = ({ item }) => (
   <>
     <section className="item">
-      <p className="item__name">Kind of item: {item.data.itemType}</p>
       <p className="item__name">Title: {item.data.title}</p>
       <p className="item__name">Author(s): {item.meta.creatorSummary}</p>
       <p className="item__name">Year: {item.meta.parsedDate}</p>
@@ -17,6 +16,9 @@ export const ItemCard = ({ item }) => (
       <p className="item__name">Modified on: {item.data.dateModified}</p>
     </section>
     <section className="item__buttons">
+      <button className="btn btn-primary" onClick={""}>
+        Edit info
+      </button>
       <button className="btn btn-primary" onClick={""}>
         Add tag
       </button>

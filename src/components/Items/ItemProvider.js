@@ -50,7 +50,7 @@ export const ItemProvider = (props) => {
   */
   const getAllItems = () => {
     return fetch(
-      `https://api.zotero.org/users/${userID}/items?format=json&v=3`,
+      `https://api.zotero.org/users/${userID}/items?limit=50&format=json&v=3`,
       getOptions
     )
       .then((response) => response.json())
@@ -61,7 +61,7 @@ export const ItemProvider = (props) => {
   // Get only top-level items in the user's library
   const getTopItems = () => {
     return fetch(
-      `https://api.zotero.org/users/${userID}/items/top?format=json&v=3`,
+      `https://api.zotero.org/users/${userID}/items/top?limit=50&format=json&v=3`,
       getOptions
     )
       .then((response) => response.json())
@@ -83,7 +83,7 @@ export const ItemProvider = (props) => {
   // Get all the children (if any) for a specific item by its key
   const getChildrenOfItem = (itemKey) => {
     return fetch(
-      `https://api.zotero.org/users/${userID}/items/${itemKey}/children?format=json&v=3`,
+      `https://api.zotero.org/users/${userID}/items/${itemKey}/children?limit=50&format=json&v=3`,
       getOptions
     )
       .then((response) => response.json())
@@ -94,7 +94,7 @@ export const ItemProvider = (props) => {
   // Return all items in a specific collection
   const getItemsByCollection = (collectionKey) => {
     return fetch(
-      `https://api.zotero.org/users/${userID}/collections/${collectionKey}/items?format=json&v=3`,
+      `https://api.zotero.org/users/${userID}/collections/${collectionKey}/items?limit=50&format=json&v=3`,
       getOptions
     )
       .then((response) => response.json())
@@ -105,7 +105,7 @@ export const ItemProvider = (props) => {
   // Return only top-level items in a specific collection
   const getTopItemsByCollection = (collectionKey) => {
     return fetch(
-      `https://api.zotero.org/users/${userID}/collections/${collectionKey}/items/top?format=json&v=3`,
+      `https://api.zotero.org/users/${userID}/collections/${collectionKey}/items/top?limit=50&format=json&v=3`,
       getOptions
     )
       .then((response) => response.json())
