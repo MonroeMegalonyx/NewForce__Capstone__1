@@ -1,5 +1,5 @@
 import React from "react";
-//import "./Item.css";
+import "./Item.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 /*
@@ -8,6 +8,12 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 export const ItemCard = ({ item }) => (
   <section className="item">
-    <p className="item__name">Item: {item.data.title}</p>
+    <p className="item__name">Kind of item: {item.data.itemType}</p>
+    <p className="item__name">Title: {item.data.title}</p>
+    <p className="item__name">Author(s): {item.meta.creatorSummary}</p>
+    <p className="item__name">Year: {item.meta.parsedDate}</p>
+    <p className="item__name">Added to Library: {item.data.dateAdded}</p>
+    <p className="item__name">Modified on: {item.data.dateModified}</p>
+    
   </section>
 );

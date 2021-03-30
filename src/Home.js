@@ -1,4 +1,5 @@
-import React, { useImperativeHandle, useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
+import { ItemContext } from "./components/Items/ItemProvider";
 import { ItemsList } from "./components/Items/ItemList";
 import { TagsList } from "./components/Tags/TagList";
 import { CollectionsList } from "./components/Collections/CollectionList";
@@ -7,21 +8,75 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 export const Home = () => {
   const user = JSON.parse(localStorage.getItem("zotero_user"));
+  /*
+    The useContext hook allows you to use data structures and 
+    functions that a parent provider component exposes.
+
+  */
+  const { items, setItems, getTopItems } = useContext(ItemContext);
+  /*
+    useEffect() allows for getting the data from somewhere else.
+    The empty brackets [] are a dependency array and mean this 
+    is only run at first load and never again because it's not given any trigger.
+  */
+  useEffect(() => {
+    getTopItems();
+  }, []);
 
   /*
-    Which collection was most recently clicked by the user.
+    Store the collection/tag filter most recently clicked by the user to State.
   */
   let [collectionSelect, setCollectionSelect] = useState();
   let [tagSelect, setTagSelect] = useState();
-  
-  /*
-    Name of the data attribute to sort by. 
-  */
-  let [sortProp, setSortProp] = useState({meta:""});
-  const handleSortSelection = (event) => {
-    setSortProp({meta:event.target.value})
-  }
 
+  /*
+    Update items array in State to be sorted by which button the user selects and pass that updated array to the ItemList component. 
+  */
+  // let [sortProp, setSortProp] = useState("");
+  const handleSortSelection = (event) => {
+    sortItemsByClick(event.target.value);
+  };
+
+  const sortItemsByClick = (sortAttribute) => {
+    const sortedArr = [ ...items ];
+    console.log("ItemList: Render",sortedArr)
+    sortedArr.sort((a, b) => {
+      console.log(
+        a[sortAttribute.split(".")[0]][sortAttribute.split(".")[1]] >
+          b[sortAttribute.split(".")[0]][sortAttribute.split(".")[1]]
+      );
+
+      if (
+        a[sortAttribute.split(".")[0]][sortAttribute.split(".")[1]] >
+        b[sortAttribute.split(".")[0]][sortAttribute.split(".")[1]]
+      )
+        return 1;
+      if (
+        a[sortAttribute.split(".")[0]][sortAttribute.split(".")[1]] <
+        b[sortAttribute.split(".")[0]][sortAttribute.split(".")[1]]
+      )
+        return -1;
+      return 0;
+    });
+    setItems(sortedArr);
+    //   for (let i=0; i<itemArr.length; i++){
+    //     //console.log("ItemList: Render", itemArr, sortState, items[i][sortState.split(".")[0]][sortState.split(".")[1]])
+    //     sortedItems.push(items[i][sortState.split(".")[0]][sortState.split(".")[1]])
+
+    //   }
+    // } else {};
+    // console.log(sortedItems)
+
+    // function sortArray(a,b) {
+    //   return (a[sortState.split(".")[0]][sortState.split(".")[1]])-(b[sortState.split(".")[0]][sortState.split(".")[1]])
+    // }
+
+    // return sortState ?(
+    //   itemArr=itemArr.sort(sortArray)
+    //   )
+    // :null
+  };
+  
   return (
     <>
       <main className="container--homepage">
@@ -40,31 +95,53 @@ export const Home = () => {
         </section>
         <section className="container--searchbar">
           <fieldset>
-              <div className="form-group">
-                  <select onChange={handleSortSelection} defaultValue="placeholder" name="sortID" id="sortID" className="form-control">
-                      <option value={"placeholder"}>Sort by...</option>
-                      <option key={1} value={"data.title"}>{"Title"}</option>
-                      <option key={2} value={"meta.creatorSummary"}>{"Author(s)"}</option>
-                      <option key={3} value={"meta.parsedDate"}>{"Year published"}</option>
-                      <option key={4} value={"data.dateAdded"}>{"Date added"}</option>
-                      <option key={5} value={"data.dateModified"}>{"Date modified"}</option>
-                      <option key={6} value={"data.itemType"}>{"Item type"}</option>
-                  </select>
-              </div>
+            <div className="form-group">
+              <select
+                onChange={handleSortSelection}
+                defaultValue=""
+                name="sortID"
+                id="sortID"
+                className="form-control"
+              >
+                <option value={""}>Sort by...</option>
+                <option key={1} value={"data.title"}>
+                  {"Title"}
+                </option>
+                <option key={2} value={"meta.creatorSummary"}>
+                  {"Author(s)"}
+                </option>
+                <option key={3} value={"meta.parsedDate"}>
+                  {"Year published"}
+                </option>
+                <option key={4} value={"data.dateAdded"}>
+                  {"Date added"}
+                </option>
+                <option key={5} value={"data.dateModified"}>
+                  {"Date modified"}
+                </option>
+                <option key={6} value={"data.itemType"}>
+                  {"Item type"}
+                </option>
+              </select>
+            </div>
           </fieldset>
         </section>
         <section className="container--content">
           <section className="container--sidebar">
             <div className="container--collections">
-              <CollectionsList selectedCollection={setCollectionSelect}/>
+              <CollectionsList selectedCollection={setCollectionSelect} />
             </div>
             <div className="container--tags">
-              <TagsList selectedTag={setTagSelect}/>
+              <TagsList selectedTag={setTagSelect} />
             </div>
           </section>
           <section className="container--list">
             <div className="container--items">
-              <ItemsList sortState={sortProp} collectionState={collectionSelect} tagState={tagSelect}/>
+              <ItemsList
+                itemArr={items}
+                collectionState={collectionSelect}
+                tagState={tagSelect}
+              />
             </div>
           </section>
         </section>

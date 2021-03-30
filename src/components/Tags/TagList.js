@@ -39,6 +39,12 @@ export const TagsList = ({selectedTag}) => {
         {tags.map((tag) => {
           return <TagCard key={tag.tag} tag={tag} selectTag={selectedTag}/>;
         })}
+        <button
+          className="tag__name"
+          onClick={() => selectedTag()}
+        >
+          Clear tag selection
+        </button>
       </div>
     </>
   );

@@ -207,6 +207,7 @@ export const ItemProvider = (props) => {
     <ItemContext.Provider
       value={{
         items,
+        setItems,
         getAllItems,
         getTopItems,
         singleItem,
