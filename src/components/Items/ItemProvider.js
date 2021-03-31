@@ -76,7 +76,6 @@ export const ItemProvider = (props) => {
       getOptions
     )
       .then((response) => response.json())
-      .then(setSingleItem)
       .catch((error) => console.log("error", error));
   };
 

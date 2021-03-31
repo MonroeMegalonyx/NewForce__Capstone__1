@@ -5,12 +5,10 @@ import React, { Component } from "react";
 import { Route } from "react-router-dom";
 import { Home } from "./Home";
 import { ItemProvider } from "./components/Items/ItemProvider";
-// import { ItemsList } from "./components/Items/ItemList";
-// import { ItemCard } from "./components/Items/ItemDetail";
+import { ItemDetail } from "./components/Items/ItemDetail";
+import { ItemForm } from "./components/Items/ItemForm";
 import { TagProvider } from "./components/Tags/TagProvider";
-// import { TagsList } from "./components/Tags/TagList";
 import { CollectionProvider } from "./components/Collections/CollectionProvider";
-// import { CollectionsList } from "./components/Collections/CollectionList";
 
 export default class ApplicationViews extends Component {
   render() {
@@ -24,6 +22,22 @@ export default class ApplicationViews extends Component {
                 path="/"
                 render={(props) => {
                   return <Home />;
+                }}
+              />
+              <Route
+                exact
+                path="/items/detail/:itemID"
+                component={ItemDetail}
+                render={(props) => {
+                  return <ItemDetail />;
+                }}
+              />
+              <Route
+                exact
+                path="/items/edit/:itemID"
+                component={ItemForm}
+                render={(props) => {
+                  return <ItemForm />;
                 }}
               />
             </TagProvider>
