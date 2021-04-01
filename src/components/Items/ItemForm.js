@@ -8,24 +8,24 @@ export const ItemForm = () => {
 
   //for edit, hold on to state of item in this view
   const [item, setItem] = useState({});
+
   //wait for data before button is active
   const [isLoading, setIsLoading] = useState(true);
-
   const { itemID } = useParams();
   const history = useHistory();
 
-  //when field changes, update state. This causes a re-render and updates the view.
-  //Controlled component
-  // const handleControlledInputChange = (event) => {
-  //   //When changing a state object or array,
-  //   //always create a copy make changes, and then set state.
-  //   const newAnimal = { ...animal };
-  //   //animal is an object with properties.
-  //   //set the property to the new value
-  //   newAnimal[event.target.name] = event.target.value;
-  //   //update state
-  //   setAnimal(newAnimal);
-  // };
+  // when field changes, update state. This causes a re-render and updates the view.
+  // Controlled component
+  const handleControlledInputChange = (event) => {
+    //When changing a state object or array,
+    //always create a copy make changes, and then set state.
+    const copyState = { ...item };
+    //item is an object with properties.
+    //set the property to the new value
+    copyState.data[event.target.name] = event.target.value;
+    //update state
+    setItem(copyState);
+  };
 
   const handleSaveItem = () => {
     // if (parseInt(animal.locationId) === 0) {
@@ -35,7 +35,7 @@ export const ItemForm = () => {
     setIsLoading(true);
     // if (animalId) {
     //PUT - update
-    editItem(itemID, item).then(() => history.push(`/`));
+    editItem(itemID, item.data).then(() => history.push(`/`));
   };
   // else {
   //     //POST - add
@@ -55,6 +55,7 @@ export const ItemForm = () => {
     getItemByKey(itemID).then((item) => {
       setItem(item);
       setIsLoading(false);
+    
     });
     //   } else {
     //     setIsLoading(false);
@@ -64,77 +65,104 @@ export const ItemForm = () => {
 
   //since state controlls this component, we no longer need
   //useRef(null) or ref
-
   return (
-    <>{console.log(itemID, item)}</>
+    // <>{console.log(itemID, item)}</>
+    
+    <form className="itemForm">
+      <h2 className="animalForm__title">EDITING ITEM:</h2>
+      <fieldset>
+        <div className="form-group">
+          <label htmlFor="itemTitle">Title: </label>
+          <input
+            type="text"
+            id="itemTitle"
+            name="title"
+            required
+            autoFocus
+            className="form-control"
+            onChange={handleControlledInputChange}
+            defaultValue={item.data?.title}
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="itemAbstract">Abstract: </label>
+          <input
+            type="text"
+            id="itemAbstract"
+            name="abstractNote"
+            className="form-control"
+            onChange={handleControlledInputChange}
+            defaultValue={item.data?.abstractNote}
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="publicationTitle">Publication: </label>
+          <input
+            type="text"
+            id="publicationTitle"
+            name="publicationTitle"
+            className="form-control"
+            onChange={handleControlledInputChange}
+            defaultValue={item.data?.publicationTitle}
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="pages">Pages: </label>
+          <input
+            type="text"
+            id="pages"
+            name="pages"
+            className="form-control"
+            onChange={handleControlledInputChange}
+            defaultValue={item.data?.pages}
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="volume">Volume: </label>
+          <input
+            type="text"
+            id="volume"
+            name="volume"
+            className="form-control"
+            onChange={handleControlledInputChange}
+            defaultValue={item.data?.volume}
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="year">Year Published: </label>
+          <input
+            type="text"
+            id="year"
+            name="year"
+            className="form-control"
+            onChange={handleControlledInputChange}
+            defaultValue={item.data?.date}
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="url">URL: </label>
+          <input
+            type="url"
+            id="url"
+            name="url"
+            className="form-control"
+            onChange={handleControlledInputChange}
+            defaultValue={item.data?.url}
+          />
+        </div>
+      </fieldset>
 
-    // <form className="animalForm">
-    //   <h2 className="animalForm__title">New Animal</h2>
-    //   <fieldset>
-    //     <div className="form-group">
-    //       <label htmlFor="animalName">Animal name: </label>
-    //       <input
-    //         type="text"
-    //         id="animalName"
-    //         name="name"
-    //         required
-    //         autoFocus
-    //         className="form-control"
-    //         placeholder="Animal name"
-    //         onChange={handleControlledInputChange}
-    //         defaultValue={animal.name}
-    //       />
-    //     </div>
-    //   </fieldset>
-    //   <fieldset>
-    //     <div className="form-group">
-    //       <label htmlFor="location">Assign to location: </label>
-    //       <select
-    //         value={animal.locationId}
-    //         name="locationId"
-    //         id="animalLocation"
-    //         className="form-control"
-    //         onChange={handleControlledInputChange}
-    //       >
-    //         <option value="0">Select a location</option>
-    //         {locations.map((l) => (
-    //           <option key={l.id} value={l.id}>
-    //             {l.name}
-    //           </option>
-    //         ))}
-    //       </select>
-    //     </div>
-    //   </fieldset>
-    //   <fieldset>
-    //     <div className="form-group">
-    //       <label htmlFor="customer">Customer: </label>
-    //       <select
-    //         value={animal.customerId}
-    //         name="customerId"
-    //         id="customerAnimal"
-    //         className="form-control"
-    //         onChange={handleControlledInputChange}
-    //       >
-    //         <option value="0">Select a customer</option>
-    //         {customers.map((c) => (
-    //           <option key={c.id} value={c.id}>
-    //             {c.name}
-    //           </option>
-    //         ))}
-    //       </select>
-    //     </div>
-    //   </fieldset>
-    //   <button
-    //     className="btn btn-primary"
-    //     disabled={isLoading}
-    //     onClick={(event) => {
-    //       event.preventDefault(); // Prevent browser from submitting the form and refreshing the page
-    //       handleSaveAnimal();
-    //     }}
-    //   >
-    // <>Add Animal</>
-    //   </button>
-    // </form>
+      <button
+        className="btn btn-primary"
+        disabled={isLoading}
+        onClick={(event) => {
+          event.preventDefault(); // Prevent browser from submitting the form and refreshing the page
+          handleSaveItem();
+        }}
+      >
+    <>Save edits</>
+      </button>
+    </form>
     
   );
 };
