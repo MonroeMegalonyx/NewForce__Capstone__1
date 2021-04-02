@@ -3,7 +3,7 @@
 */
 import React, { useState } from "react";
 import { ItemCard } from "./Item";
-import { ItemForm } from "./TagForm";
+import { TagForm } from "./TagForm";
 import "./Item.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -45,14 +45,20 @@ export const ItemsList = ({ itemArr, collectionState, tagState }) => {
             ) : // Finally, if no filters were selected, just show the user's items
             itemIdToEdit === item.key ? (
               <>
-                <ItemForm
+                <TagForm
+                  key={item.key}
+                  item={item}
                   itemIdState={itemIdToEdit}
                   changeItemIdState={setItemIdToEdit}
                 />
               </>
             ) : (
               <>
-                <ItemCard key={item.key} item={item} />
+                <ItemCard
+                  key={item.key}
+                  item={item}
+                  changeItemIdState={setItemIdToEdit}
+                />
               </>
             )
           );

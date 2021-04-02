@@ -70,7 +70,6 @@ export const TagProvider = (props) => {
       getOptions
     )
       .then((response) => response.json())
-      .then(setTagState)
       .catch((error) => console.log("error", error));
   };
 
