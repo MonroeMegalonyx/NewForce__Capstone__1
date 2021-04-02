@@ -113,7 +113,7 @@ export const Home = () => {
                 defaultValue=""
                 name="sortID"
                 id="sortID"
-                className="btn btn-secondary dropdown-toggle"
+                className="btn btn-light border-secondary dropdown-toggle"
               >
                 <option value={""}>Sort by...</option>
                 <option key={1} value={"data.title"}>

@@ -21,10 +21,10 @@
   
 }
 
-.container--sortmenu{
-  width: 20%;
-  margin-bottom: 35px;
-  margin-left: 75%;
+.dropdown-toggle{
+  width: 25%;
+  margin-bottom: 15px;
+  margin-left: 65%;
 }
 
 .items{

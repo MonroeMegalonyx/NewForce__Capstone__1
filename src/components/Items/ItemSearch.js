@@ -10,7 +10,7 @@ export const ItemSearch = () => {
     <>
       <input
         type="search"
-        className="form-control mr-sm-2"
+        className="form-control mr-sm-2 bg-light border-secondary"
         onKeyUp={(event) => setSearchTerms(event.target.value)}
         placeholder="Search library..."
       />
