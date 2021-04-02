@@ -99,6 +99,14 @@ export const TagForm = ({ itemIdState, changeItemIdState, item }) => {
       >
         <>Save Changes</>
       </button>
+      <button
+        id="cancelTag"
+        onClick={(event) => {
+          changeItemIdState(0);
+        }}
+      >
+        <>Cancel</>
+      </button>
     </>
   );
 };

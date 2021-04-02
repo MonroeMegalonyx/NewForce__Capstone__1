@@ -44,7 +44,7 @@ export const TagProvider = (props) => {
   // Return all tags in a user's library
   const getAllTags = () => {
     return fetch(
-      `https://api.zotero.org/users/${userID}/tags?format=json&v=3`,
+      `https://api.zotero.org/users/${userID}/tags?limit=16&format=json&v=3`,
       getOptions
     )
       .then((response) => response.json())
