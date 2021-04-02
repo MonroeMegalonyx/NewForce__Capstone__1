@@ -10,10 +10,10 @@ import "bootstrap/dist/css/bootstrap.min.css";
 export const CollectionCard = ({ collection, selectCollection }) => (
   <section className="collection">
     <button
-      className="collection__name"
+      className="colbt btn btn-info"
       onClick={() => selectCollection(collection.key)}
     >
-      Collection: {collection.data.name}
+      {collection.data.name}
     </button>
   </section>
 );

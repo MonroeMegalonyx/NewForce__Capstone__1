@@ -8,8 +8,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 export const TagCard = ({ tag, selectTag }) => (
   <section className="tag">
-    <button className="tag__name" onClick={() => selectTag(tag.tag)}>
-      Tag: {tag.tag}
+    <button className="btn btn-info" onClick={() => selectTag(tag.tag)}>
+      {tag.tag}
     </button>
   </section>
 );

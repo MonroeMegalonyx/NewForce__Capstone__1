@@ -55,7 +55,6 @@ export const ItemForm = () => {
     getItemByKey(itemID).then((item) => {
       setItem(item);
       setIsLoading(false);
-    
     });
     //   } else {
     //     setIsLoading(false);
@@ -67,7 +66,7 @@ export const ItemForm = () => {
   //useRef(null) or ref
   return (
     // <>{console.log(itemID, item)}</>
-    
+
     <form className="itemForm">
       <h2 className="animalForm__title">EDITING ITEM:</h2>
       <fieldset>
@@ -153,16 +152,24 @@ export const ItemForm = () => {
       </fieldset>
 
       <button
-        className="btn btn-primary"
+        className="btn btn-success"
         disabled={isLoading}
         onClick={(event) => {
           event.preventDefault(); // Prevent browser from submitting the form and refreshing the page
           handleSaveItem();
         }}
       >
-    <>Save edits</>
+        <>Save edits</>
+      </button>
+      <button
+        className="btn btn-secondary"
+        disabled={isLoading}
+        onClick={(event) => {
+          history.push(`/`);
+        }}
+      >
+        <>Go back</>
       </button>
     </form>
-    
   );
 };

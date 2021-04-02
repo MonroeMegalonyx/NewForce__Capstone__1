@@ -1,5 +1,80 @@
 /* Content Section */
 .container--content {
   display: flex;
-  justify-content: space-around;
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+.container--sidebar{
+  margin-right: 15px;
+}
+
+.container--header {
+  display: flex;
+  flex-direction: column;
+  margin-left: 5%;
+}
+
+.form-control {
+  width: 90%;
+  margin-bottom: 15px;
+  
+}
+
+.container--sortmenu{
+  width: 20%;
+  margin-bottom: 35px;
+  margin-left: 75%;
+}
+
+.items{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.item {
+  width: 30%;
+  margin: 5px;
+}
+
+.collection{
+  margin-bottom: 5px;
+  width: 100%
+}
+
+.colbt{
+  width: 100%
+}
+
+.collections{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.tag{
+  margin-bottom: 5px;
+  margin-right: 5px
+}
+
+.tags{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+.btn-primary{
+  margin-right: 5px;
+}
+
+.btn-warning{
+  margin-right: 5px;
+}
+
+.item--detail{
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+.btn-success{
+  margin-right: 5px;
 }

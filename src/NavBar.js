@@ -7,10 +7,10 @@ import "bootstrap/dist/css/bootstrap.min.css"
 class NavBar extends Component {
     render() {
         return (
-            <nav className="navbar bg-dark text-white flex-md-nowrap p-0 shadow">
+            <nav className="navbar bg-danger text-black flex-md-nowrap p-0">
                 <ul className="nav nav-pills nav-fill">
                     <li className="nav-item">
-                        <Link className="nav-link" to="/">My Library</Link>
+                        <Link className="nav-link text-white" to="/">My Library</Link>
                     </li>
                     {/* <li className="nav-item">
                         <Link className="nav-link" to="/items">My Library</Link>
@@ -22,10 +22,10 @@ class NavBar extends Component {
                         <Link className="nav-link" to="/collections">Collections TEST</Link>
                     </li> */}
                 </ul>
-                <span className="navbar-text">
+                <span className="navbar-text ">
                     <ul className="nav nav-pills nav-fill">
                         <li className="nav-item">
-                            <Link className="nav-link" to="/logout">Log Out</Link>
+                            <Link className="nav-link text-white" to="/logout">Log Out</Link>
                         </li>
                     </ul>
                 </span>

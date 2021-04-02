@@ -29,7 +29,7 @@ export const Login = (props) => {
         <form className="form--login" onSubmit={handleLogin}>
           <h1>Zotero: Capstone #1 Project</h1>
           <h3>Please sign in with your private key from Zotero</h3>
-          <p>
+          {/* <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
             ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
@@ -37,7 +37,7 @@ export const Login = (props) => {
             reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
             pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
             culpa qui officia deserunt mollit anim id est laborum.
-          </p>
+          </p> */}
           <fieldset>
             <label htmlFor="inputKey">Private Key: </label>
             <input

@@ -23,23 +23,22 @@ export const ItemCard = ({ item, changeItemIdState }) => {
         <p className="item__year">Year: {item.meta.parsedDate}</p>
         <p className="item__added">Added to Library: {item.data.dateAdded}</p>
         <p className="item__modified">Modified on: {item.data.dateModified}</p>
-      </section>
-      <section className="item__buttons">
+      
         <button
           className="btn btn-primary"
           onClick={() => history.push(`/items/detail/${item.key}`)}
         >
-          See details
+          Details
         </button>
-        <button className="btn btn-primary" onClick={() => handleClickEditTask(item.key)}>
+        <button className="btn btn-warning" onClick={() => handleClickEditTask(item.key)}>
           Edit tags
         </button>
-        <button
-          className="btn btn-primary"
+        {/* <button
+          className="btn btn-warning"
           onClick={() => history.push(`/items/edit/${item.key}`)}
         >
           Edit item
-        </button>
+        </button> */}
         {/* <button className="btn btn-primary" onClick={""}>
         Add note
       </button> */}

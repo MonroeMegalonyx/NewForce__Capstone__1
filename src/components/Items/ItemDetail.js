@@ -29,24 +29,33 @@ export const ItemDetail = () => {
 
   return (
     <>
-      <section className="item">
+      <section className="item--detail">
         <h3 className="item__name">Item: {item.data?.title}</h3>
         <p className="item__author">Author(s): {item.meta?.creatorSummary}</p>
         <p className="item__abstract">Abstract: {item.data?.abstractNote}</p>
-        <p className="item__publication">Publications: {item.data?.publicationTitle}</p>
+        <p className="item__publication">
+          Publications: {item.data?.publicationTitle}
+        </p>
         <p className="item__pages">Pages: {item.data?.pages}</p>
         <p className="item__volume">Volume: {item.data?.volume}</p>
         <p className="item__year">Year: {item.meta?.parsedDate}</p>
         <p className="item__url">URL: {item.data?.url}</p>
         <p className="item__added">Added on: {item.data?.dateAdded}</p>
         <p className="item__modified">Modified on: {item.data?.dateModified}</p>
-      </section>
-      <section className="item__buttons">
+
         <button
-          className="btn btn-primary"
+          className="btn btn-warning"
           onClick={() => history.push(`/items/edit/${item.key}`)}
         >
           Edit
+        </button>
+        <button
+          className="btn btn-secondary"
+          onClick={(event) => {
+            history.push(`/`);
+          }}
+        >
+          <>Go back</>
         </button>
       </section>
     </>

@@ -35,19 +35,20 @@ export const Home = () => {
   useEffect(() => {
     if (searchTerms !== "") {
       // Display items matching search filter if search field is not blank
-      const searchReturn = items.filter((item) =>
-        item.data.title.toLowerCase().includes(searchTerms) ||
-        item.data.shortTitle?.toLowerCase().includes(searchTerms) ||
-        item.data.publicationTitle?.toLowerCase().includes(searchTerms) ||
-        item.data.journalAbbreviation?.toLowerCase().includes(searchTerms) ||
-        item.data.institution?.toLowerCase().includes(searchTerms) ||
-        item.data.abstractNote?.toLowerCase().includes(searchTerms) ||
-        item.meta.creatorSummary?.toLowerCase().includes(searchTerms) ||
-        item.meta.parsedDate?.includes(searchTerms)       
+      const searchReturn = items.filter(
+        (item) =>
+          item.data.title.toLowerCase().includes(searchTerms) ||
+          item.data.shortTitle?.toLowerCase().includes(searchTerms) ||
+          item.data.publicationTitle?.toLowerCase().includes(searchTerms) ||
+          item.data.journalAbbreviation?.toLowerCase().includes(searchTerms) ||
+          item.data.institution?.toLowerCase().includes(searchTerms) ||
+          item.data.abstractNote?.toLowerCase().includes(searchTerms) ||
+          item.meta.creatorSummary?.toLowerCase().includes(searchTerms) ||
+          item.meta.parsedDate?.includes(searchTerms)
       );
       setSearchFilter(searchReturn);
     } else {
-      setSearchFilter(items)
+      setSearchFilter(items);
     }
   }, [searchTerms, items]);
 
@@ -56,13 +57,14 @@ export const Home = () => {
   */
   const handleSortSelection = (event) => {
     if (event.target.value !== "") {
-    console.log("Sorting items...");
-    sortItemsByClick(event.target.value)}
+      console.log("Sorting items...");
+      sortItemsByClick(event.target.value);
+    }
   };
 
   const sortItemsByClick = (sortAttribute) => {
     const sortedArr = [...items];
-    
+
     sortedArr.sort((a, b) => {
       console.log(
         a[sortAttribute?.split(".")[0]][sortAttribute?.split(".")[1]] >
@@ -87,10 +89,10 @@ export const Home = () => {
   return (
     <>
       <main className="container--homepage">
-        <section className="container--header">
+        <div className="container--header">
           <h1>Zotero: Capstone #1 Project</h1>
-          <h3>Welcome back {user[2]}</h3>
-          <p>
+          <h3>Welcome back <i>{user[2]}</i></h3>
+          {/* <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
             ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
@@ -98,45 +100,44 @@ export const Home = () => {
             reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
             pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
             culpa qui officia deserunt mollit anim id est laborum.
-          </p>
-        </section>
+          </p> */}
 
-        <section className="container--searchbar">
-          <ItemSearch />
-        </section>
+          <section className="container--searchbar">
+            <ItemSearch />
+          </section>
 
-        <section className="container--sortmenu">
-          <fieldset>
-            <select
-              onChange={handleSortSelection}
-              defaultValue= ""
-              name="sortID"
-              id="sortID"
-              className="form-control"
-            >
-              <option value={""}>Sort by...</option>
-              <option key={1} value={"data.title"}>
-                {"Title"}
-              </option>
-              <option key={2} value={"meta.creatorSummary"}>
-                {"Author(s)"}
-              </option>
-              <option key={3} value={"meta.parsedDate"}>
-                {"Year published"}
-              </option>
-              <option key={4} value={"data.dateAdded"}>
-                {"Date added"}
-              </option>
-              <option key={5} value={"data.dateModified"}>
-                {"Date modified"}
-              </option>
-              {/* <option key={6} value={"data.itemType"}>
+          <section className="container--sortmenu">
+            <fieldset>
+              <select
+                onChange={handleSortSelection}
+                defaultValue=""
+                name="sortID"
+                id="sortID"
+                className="btn btn-secondary dropdown-toggle"
+              >
+                <option value={""}>Sort by...</option>
+                <option key={1} value={"data.title"}>
+                  {"Title"}
+                </option>
+                <option key={2} value={"meta.creatorSummary"}>
+                  {"Author(s)"}
+                </option>
+                <option key={3} value={"meta.parsedDate"}>
+                  {"Year published"}
+                </option>
+                <option key={4} value={"data.dateAdded"}>
+                  {"Date added"}
+                </option>
+                <option key={5} value={"data.dateModified"}>
+                  {"Date modified"}
+                </option>
+                {/* <option key={6} value={"data.itemType"}>
                 {"Item type"}
               </option> */}
-            </select>
-          </fieldset>
-        </section>
-
+              </select>
+            </fieldset>
+          </section>
+        </div>
         <section className="container--content">
           <section className="container--sidebar">
             <div className="container--collections">

@@ -38,8 +38,8 @@ export const CollectionsList = ({ selectedCollection }) => {
 
   return (
     <>
+      <h2>Collections</h2>
       <div className="collections">
-        <h2>Collections</h2>
         {console.log("CollectionList: Render", collections)}
         {collections.map((collection) => {
           return (
@@ -50,10 +50,7 @@ export const CollectionsList = ({ selectedCollection }) => {
             />
           );
         })}
-        <button
-          className="collection__name"
-          onClick={() => selectedCollection()}
-        >
+        <button className="btn btn-danger" onClick={() => selectedCollection()}>
           Clear folder selection
         </button>
       </div>

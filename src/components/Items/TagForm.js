@@ -72,7 +72,7 @@ export const TagForm = ({ itemIdState, changeItemIdState, item }) => {
         <p className="item__year">Year: {item.meta.parsedDate}</p>
         <p className="item__added">Added to Library: {item.data.dateAdded}</p>
         <p className="item__modified">Modified on: {item.data.dateModified}</p>
-      </section>
+      
 
       <>
         {itemTags.length !== 0
@@ -92,6 +92,7 @@ export const TagForm = ({ itemIdState, changeItemIdState, item }) => {
       </>
       <button
         id="saveTag"
+        className="btn btn-success"
         onClick={(event) => {
           event.preventDefault(); // Prevent browser from submitting the form and refreshing the page
           handleClickSaveTask(itemIdState);
@@ -101,12 +102,15 @@ export const TagForm = ({ itemIdState, changeItemIdState, item }) => {
       </button>
       <button
         id="cancelTag"
+        className="btn btn-danger"
         onClick={(event) => {
           changeItemIdState(0);
         }}
       >
         <>Cancel</>
       </button>
+      </section>
     </>
+    
   );
 };

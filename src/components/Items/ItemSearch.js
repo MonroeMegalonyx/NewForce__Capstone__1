@@ -9,8 +9,8 @@ export const ItemSearch = () => {
   return (
     <>
       <input
-        type="text"
-        className="input--wide"
+        type="search"
+        className="form-control mr-sm-2"
         onKeyUp={(event) => setSearchTerms(event.target.value)}
         placeholder="Search library..."
       />
