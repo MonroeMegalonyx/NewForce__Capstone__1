@@ -90,8 +90,9 @@ export const Home = () => {
     <>
       <main className="container--homepage">
         <div className="container--header">
-          <h1>Zotero: Capstone #1 Project</h1>
-          <h3>Welcome back <i>{user[2]}</i></h3>
+          <h1>NF-Zotero</h1>
+          <h3>A full featured web client for your Zotero Library.</h3>
+          <h3>Welcome back <i>{user[2]}</i>.</h3>
           {/* <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim

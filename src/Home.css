@@ -27,6 +27,9 @@
   margin-left: 65%;
 }
 
+.container--list{
+  width: 700%
+}
 .items{
   display: flex;
   flex-wrap: wrap;
@@ -35,6 +38,10 @@
 .item {
   width: 30%;
   margin: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
 }
 
 .collection{
